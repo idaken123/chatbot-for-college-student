@@ -1,0 +1,103 @@
+<view class="container" style="background-color: {{themeConfig.bgColor}};">
+  <view class="section" style="background-color: {{themeConfig.cardBg}};">
+    <view class="section-title" style="border-left-color: {{themeConfig.primaryColor}}; color: {{themeConfig.textColor}};">主题风格</view>
+    <view class="theme-list">
+      <view 
+        wx:for="{{themeKeys}}" 
+        wx:key="*this" 
+        class="theme-item {{currentTheme === item ? 'active' : ''}}"
+        data-theme="{{item}}"
+        bindtap="onThemeChange"
+        style="background-color: {{currentTheme === item ? themeConfig.bgColor : (themeConfig.bgColor === '#121212' ? '#2a2a2a' : '#f9f9f9')}}; border-color: {{currentTheme === item ? themeConfig.primaryColor : 'transparent'}};"
+      >
+        <view class="theme-preview" style="background-color: {{themes[item].primaryColor}};"></view>
+        <text class="theme-name" style="color: {{themeConfig.textColor}};">{{themes[item].name}}</text>
+        <view wx:if="{{currentTheme === item}}" class="check-icon" style="color: {{themeConfig.primaryColor}};">✓</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="section" style="background-color: {{themeConfig.cardBg}};">
+    <view class="section-title" style="border-left-color: {{themeConfig.primaryColor}}; color: {{themeConfig.textColor}};">聊天背景</view>
+    <view class="action-list">
+      <view class="action-item" bindtap="onSelectBgImage" style="border-bottom-color: {{themeConfig.borderColor}};">
+        <text class="action-text" style="color: {{themeConfig.textColor}};">选择背景图片</text>
+        <text class="action-arrow" style="color: {{themeConfig.textLight}};">›</text>
+      </view>
+      <view class="action-item" bindtap="onRemoveBgImage" wx:if="{{chatBgImage}}" style="border-bottom-color: {{themeConfig.borderColor}};">
+        <text class="action-text" style="color: {{themeConfig.textColor}};">移除背景图片</text>
+        <text class="action-arrow" style="color: {{themeConfig.textLight}};">›</text>
+      </view>
+      <view class="action-item" wx:if="{{chatBgImage}}">
+        <view style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+          <text class="action-text" style="color: {{themeConfig.textColor}};">背景透明度</text>
+          <text style="color: {{themeConfig.textSecondary}}; font-size: 24rpx;">{{Math.round(bgOpacity * 100)}}%</text>
+        </view>
+        <slider 
+          value="{{bgOpacity}}" 
+          min="0.4" 
+          max="1" 
+          step="0.1" 
+          bindchange="onOpacityChange"
+          style="width: 100%; margin-top: 16rpx;"
+        />
+      </view>
+    </view>
+  </view>
+
+  <view class="section" style="background-color: {{themeConfig.cardBg}};">
+    <view class="section-title" style="border-left-color: {{themeConfig.primaryColor}}; color: {{themeConfig.textColor}};">机器人角色</view>
+    <view class="role-list">
+      <view 
+        wx:for="{{roleKeys}}" 
+        wx:key="*this" 
+        class="role-item {{currentRole === item ? 'active' : ''}}"
+        data-role="{{item}}"
+        bindtap="onRoleChange"
+        style="background-color: {{currentRole === item ? themeConfig.bgColor : (themeConfig.bgColor === '#121212' ? '#2a2a2a' : '#f9f9f9')}}; border-color: {{currentRole === item ? themeConfig.primaryColor : 'transparent'}};"
+      >
+        <view class="role-avatar" style="background-color: {{themeConfig.primaryColor}};">
+          {{roles[item].avatar}}
+        </view>
+        <view class="role-info">
+          <text class="role-name" style="color: {{themeConfig.textColor}};">{{roles[item].name}}</text>
+          <text class="role-desc" style="color: {{themeConfig.textLight}};">{{roles[item].style || (item === 'counselor' ? '专业心理咨询' : item === 'friend' ? '亲切友好' : item === 'elder' ? '经验丰富' : '可爱治愈')}}</text>
+        </view>
+        <view class="role-actions">
+          <view class="action-btn edit-btn" catchtap="onEditRole" data-role="{{item}}" style="color: {{themeConfig.primaryColor}};">编辑</view>
+          <view class="action-btn delete-btn" catchtap="onDeleteRole" data-role="{{item}}" style="color: #ff4d4f;">删除</view>
+        </view>
+        <view wx:if="{{currentRole === item}}" class="check-icon" style="color: {{themeConfig.primaryColor}};">✓</view>
+      </view>
+      <view class="role-item add-role" bindtap="onAddCustomRole" style="background-color: {{themeConfig.bgColor === '#121212' ? '#2a2a2a' : '#f9f9f9'}};">
+        <view class="role-avatar add-avatar" style="background-color: {{themeConfig.primaryColor}};">+</view>
+        <view class="role-info">
+          <text class="role-name" style="color: {{themeConfig.textColor}};">添加自定义角色</text>
+          <text class="role-desc" style="color: {{themeConfig.textLight}};">创建个性化交流角色</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="section" style="background-color: {{themeConfig.cardBg}};">
+    <view class="section-title" style="border-left-color: {{themeConfig.primaryColor}}; color: {{themeConfig.textColor}};">数据管理</view>
+    <view class="action-list">
+      <view class="action-item" bindtap="onClearHistory" style="border-bottom-color: {{themeConfig.borderColor}};">
+        <text class="action-text" style="color: {{themeConfig.textColor}};">清除聊天记录</text>
+        <text class="action-arrow" style="color: {{themeConfig.textLight}};">›</text>
+      </view>
+      <view class="action-item" bindtap="onClearRecords">
+        <text class="action-text" style="color: {{themeConfig.textColor}};">清除心情记录</text>
+        <text class="action-arrow" style="color: {{themeConfig.textLight}};">›</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="section about" style="background-color: {{themeConfig.cardBg}};">
+    <view class="section-title" style="border-left-color: {{themeConfig.primaryColor}}; color: {{themeConfig.textColor}};">关于</view>
+    <view class="about-content">
+      <text style="color: {{themeConfig.textSecondary}};">校园心理助手 beta2.0</text>
+      <text style="color: {{themeConfig.textSecondary}};">一款关注学生心理健康的AI聊天助手</text>
+    </view>
+  </view>
+</view>

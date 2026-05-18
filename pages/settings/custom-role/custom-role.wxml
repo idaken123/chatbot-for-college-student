@@ -1,0 +1,74 @@
+<view class="container" style="background-color: {{themeConfig.bgColor}};">
+  <view class="form-container" style="background-color: {{themeConfig.cardBg}};">
+    <view class="form-item">
+      <text class="label" style="color: {{themeConfig.textColor}};">角色名称</text>
+      <input 
+        placeholder="请输入角色名称" 
+        value="{{roleData.name}}" 
+        bindinput="onNameChange"
+        style="color: {{themeConfig.textColor}}; border-color: {{themeConfig.borderColor}};"
+        placeholder-style="color: {{themeConfig.textLight}};"
+      />
+    </view>
+    
+    <view class="form-item">
+      <text class="label" style="color: {{themeConfig.textColor}};">角色头像</text>
+      <input 
+        placeholder="请输入一个字作为头像" 
+        value="{{roleData.avatar}}" 
+        bindinput="onAvatarChange"
+        style="color: {{themeConfig.textColor}}; border-color: {{themeConfig.borderColor}};"
+        placeholder-style="color: {{themeConfig.textLight}};"
+        maxlength="1"
+      />
+    </view>
+    
+    <view class="form-item">
+      <text class="label" style="color: {{themeConfig.textColor}};">聊天风格</text>
+      <input 
+        placeholder="请描述聊天风格，如：专业温暖、轻松亲切等" 
+        value="{{roleData.style}}" 
+        bindinput="onStyleChange"
+        style="color: {{themeConfig.textColor}}; border-color: {{themeConfig.borderColor}};"
+        placeholder-style="color: {{themeConfig.textLight}};"
+      />
+    </view>
+    
+    <view class="form-item">
+      <text class="label" style="color: {{themeConfig.textColor}};">聊天内容倾向</text>
+      <input 
+        placeholder="请描述聊天内容倾向，如：心理疏导、情感支持等" 
+        value="{{roleData.tendency}}" 
+        bindinput="onTendencyChange"
+        style="color: {{themeConfig.textColor}}; border-color: {{themeConfig.borderColor}};"
+        placeholder-style="color: {{themeConfig.textLight}};"
+      />
+    </view>
+    
+    <view class="form-item">
+      <text class="label" style="color: {{themeConfig.textColor}};">角色描述</text>
+      <textarea 
+        placeholder="请详细描述角色的身份、性格特点、对话风格等" 
+        value="{{roleData.prompt}}" 
+        bindinput="onPromptChange"
+        style="color: {{themeConfig.textColor}}; border-color: {{themeConfig.borderColor}};"
+        placeholder-style="color: {{themeConfig.textLight}};"
+        auto-height
+        maxlength="500"
+      />
+    </view>
+    
+    <view class="button-group">
+      <button 
+        class="cancel-btn" 
+        bindtap="onCancel"
+        style="border-color: {{themeConfig.primaryColor}}; color: {{themeConfig.primaryColor}};"
+      >取消</button>
+      <button 
+        class="save-btn" 
+        bindtap="onSave"
+        style="background-color: {{themeConfig.primaryColor}};"
+      >保存</button>
+    </view>
+  </view>
+</view>

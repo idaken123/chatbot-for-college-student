@@ -1,0 +1,60 @@
+<view class="container">
+  <view class="bg-layer" style="{{chatBgImage ? 'background-image: url(' + chatBgImage + '); background-size: cover; background-position: center; opacity: ' + bgOpacity + ';' : 'background-color: ' + theme.bgColor + ';'}}"></view>
+  <view class="content-layer">
+    <view class="header-actions" style="background-color: {{theme.cardBg}}; border-bottom-color: {{theme.borderColor}};">
+      <view class="robot-info">
+        <view class="robot-avatar" style="background-color: {{theme.primaryColor}};">{{robotAvatar}}</view>
+        <text class="robot-name" style="color: {{theme.textColor}};">{{robotName}}</text>
+      </view>
+      <view class="clear-btn" style="background-color: {{theme.bgColor}};" bindtap="onClearChat">
+        <text style="color: {{theme.textSecondary}};">清除</text>
+      </view>
+    </view>
+
+    <scroll-view 
+      class="chat-container" 
+      scroll-y 
+      scroll-into-view="{{toView}}"
+      scroll-with-animation
+    >
+      <view 
+        wx:for="{{messages}}" 
+        wx:key="index" 
+        class="message {{item.role}}"
+        id="msg-{{index}}"
+      >
+        <view class="avatar" style="background-color: {{item.role === 'assistant' ? theme.primaryColor : theme.bubbleColor}};">
+          {{item.role === 'assistant' ? robotAvatar : '我'}}
+        </view>
+        <view class="content" style="{{item.role === 'user' ? 'background-color: ' + theme.bubbleColor + '; color: white;' : 'background-color: ' + theme.cardBg + '; color: ' + theme.textColor + ';'}}">
+          <rich-text wx:if="{{item.role === 'assistant' && item.formattedContent}}" nodes="{{item.formattedContent}}"></rich-text>
+          <text wx:else>{{item.content}}</text>
+        </view>
+      </view>
+    </scroll-view>
+
+    <view class="input-area" style="background-color: {{theme.cardBg}}; border-top-color: {{theme.primaryColor}};">
+      <input 
+        placeholder="有什么想倾诉的？按回车也能发送～" 
+        value="{{inputText}}" 
+        bindinput="onInput" 
+        bindconfirm="onSend"
+        confirm-type="send"
+        class="input"
+        placeholder-style="color: {{theme.textLight}};"
+        style="color: {{theme.textColor}};"
+      />
+      <button 
+        bindtap="onSend"
+        class="send-btn"
+        style="background-color: {{theme.primaryColor}};"
+        wx:if="{{inputText.trim()}}"
+      >发送</button>
+      <button 
+        class="send-btn disabled"
+        style="background-color: {{theme.textLight}};"
+        wx:else
+      >发送</button>
+    </view>
+  </view>
+</view>

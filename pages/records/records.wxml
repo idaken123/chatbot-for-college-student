@@ -1,0 +1,57 @@
+<view class="container" style="background-color: {{themeConfig.bgColor}};">
+  <view wx:if="{{!hasRecords}}" class="empty-state">
+    <text class="empty-icon">📝</text>
+    <text class="empty-text" style="color: {{themeConfig.textColor}};">暂无心情记录</text>
+    <text class="empty-hint" style="color: {{themeConfig.textSecondary}};">开始和助手聊天，记录你的心情吧～</text>
+  </view>
+
+  <block wx:if="{{hasRecords}}">
+    <view class="summary-card" wx:if="{{weeklySummary}}" style="background: linear-gradient(135deg, {{themeConfig.primaryColor}}, {{themeConfig.bubbleColor}});">
+      <view class="summary-header">
+        <text class="summary-title">本周心情总结</text>
+        <text class="summary-icon">{{weeklySummary.trend === 'positive' ? '📈' : weeklySummary.trend === 'negative' ? '📉' : '➡️'}}</text>
+      </view>
+      <view class="summary-content">
+        <view class="summary-item">
+          <text class="summary-label">平均心情指数</text>
+          <text class="summary-value">{{weeklySummary.avgScore}}/10</text>
+        </view>
+        <view class="summary-item">
+          <text class="summary-label">记录天数</text>
+          <text class="summary-value">{{weeklySummary.recordCount}}天</text>
+        </view>
+        <view class="summary-item" wx:if="{{weeklySummary.topEmotions.length > 0}}">
+          <text class="summary-label">主要情绪</text>
+          <text class="summary-value">{{weeklySummary.topEmotions.join(' ')}}</text>
+        </view>
+      </view>
+      <view class="summary-suggestion">
+        <text>{{weeklySummary.trend === 'positive' ? '整体状态良好，继续保持！' : weeklySummary.trend === 'negative' ? '最近状态有些低落，多关注自己' : '状态平稳，继续保持'}}</text>
+      </view>
+    </view>
+
+    <view class="section-title" style="color: {{themeConfig.textSecondary}};">历史记录</view>
+    <view class="records-list" style="background-color: {{themeConfig.cardBg}};">
+      <view 
+        wx:for="{{records}}" 
+        wx:key="date" 
+        class="record-item"
+        data-record="{{item}}"
+        bindtap="onViewDetail"
+        style="border-bottom-color: {{themeConfig.borderColor}};"
+      >
+        <view class="record-left">
+          <text class="record-emoji">{{item.emoji}}</text>
+          <view class="record-info">
+            <text class="record-date" style="color: {{themeConfig.textColor}};">{{item.displayDate}}</text>
+            <text class="record-emotions" style="color: {{themeConfig.textLight}};" wx:if="{{item.emotions}}">{{item.emotions.join(' ')}}</text>
+          </view>
+        </view>
+        <view class="record-right">
+          <text class="record-score" style="color: {{themeConfig.primaryColor}};">{{item.score}}/10</text>
+          <text class="record-arrow" style="color: {{themeConfig.textLight}};">›</text>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>

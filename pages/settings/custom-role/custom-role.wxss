@@ -1,0 +1,61 @@
+.container {
+  min-height: 100vh;
+  padding: 20rpx;
+}
+
+.form-container {
+  border-radius: 16rpx;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.1);
+}
+
+.form-item {
+  margin-bottom: 30rpx;
+}
+
+.label {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 500;
+  margin-bottom: 10rpx;
+}
+
+input {
+  width: 100%;
+  padding: 20rpx;
+  border: 1rpx solid #ddd;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+}
+
+textarea {
+  width: 100%;
+  padding: 20rpx;
+  border: 1rpx solid #ddd;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  min-height: 200rpx;
+  line-height: 1.5;
+}
+
+.button-group {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 40rpx;
+}
+
+button {
+  flex: 1;
+  height: 80rpx;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+}
+
+.cancel-btn {
+  border: 1rpx solid;
+  background-color: transparent;
+}
+
+.save-btn {
+  color: white;
+}
